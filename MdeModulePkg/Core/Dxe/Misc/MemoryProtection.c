@@ -231,9 +231,9 @@ SetUefiImageMemoryAttributes (
 
   FinalAttributes = (Descriptor.Attributes & CACHE_ATTRIBUTE_MASK) | (Attributes & MEMORY_ATTRIBUTE_MASK);
 
-  DEBUG ((DEBUG_INFO, "SetUefiImageMemoryAttributes - 0x%016lx - 0x%016lx (0x%016lx)\n", BaseAddress, Length, FinalAttributes));
+  //DEBUG ((DEBUG_INFO, "SetUefiImageMemoryAttributes - 0x%016lx - 0x%016lx (0x%016lx)\n", BaseAddress, Length, FinalAttributes));
 
-  ASSERT(gCpu != NULL);
+  if(gCpu)
   gCpu->SetMemoryAttributes (gCpu, BaseAddress, Length, FinalAttributes);
 }
 
@@ -411,8 +411,8 @@ ProtectUefiImage (
   BOOLEAN                              IsAligned;
   UINT32                               ProtectionPolicy;
 
-  DEBUG ((DEBUG_INFO, "ProtectUefiImageCommon - 0x%x\n", LoadedImage));
-  DEBUG ((DEBUG_INFO, "  - 0x%016lx - 0x%016lx\n", (EFI_PHYSICAL_ADDRESS)(UINTN)LoadedImage->ImageBase, LoadedImage->ImageSize));
+  //DEBUG ((DEBUG_INFO, "ProtectUefiImageCommon - 0x%x\n", LoadedImage));
+  //DEBUG ((DEBUG_INFO, "  - 0x%016lx - 0x%016lx\n", (EFI_PHYSICAL_ADDRESS)(UINTN)LoadedImage->ImageBase, LoadedImage->ImageSize));
 
   if (gCpu == NULL) {
     return ;
@@ -988,7 +988,7 @@ MemoryProtectionCpuArchProtocolNotify (
   EFI_HANDLE                  *HandleBuffer;
   UINTN                       Index;
 
-  DEBUG ((DEBUG_INFO, "MemoryProtectionCpuArchProtocolNotify:\n"));
+  //DEBUG ((DEBUG_INFO, "MemoryProtectionCpuArchProtocolNotify:\n"));
   Status = CoreLocateProtocol (&gEfiCpuArchProtocolGuid, NULL, (VOID **)&gCpu);
   if (EFI_ERROR (Status)) {
     return;
